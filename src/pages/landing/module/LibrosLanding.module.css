@@ -1,0 +1,147 @@
+.searchSection {
+  background-color: #f0f0f0;
+  padding: 2.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.searchHeader {
+  margin-bottom: 2rem;
+}
+
+.searchTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.searchDescription {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .searchForm {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .inputContainer {
+    width: 50%;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+}
+
+.searchInput:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #3b82f6;
+}
+
+.searchHint {
+  width: 100%;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .searchHint {
+    width: 50%;
+    margin-left: 0.5rem;
+  }
+}
+
+.booksGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .booksGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .booksGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.bookCard {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.bookCard:hover {
+  transform: scale(1.05);
+}
+
+.highlightedBook {
+  ring: 2px;
+  ring-color: #3b82f6;
+}
+
+.bookCover {
+  width: 100%;
+  height: 16rem;
+  object-fit: cover;
+}
+
+.bookInfo {
+  padding: 1rem;
+}
+
+.bookTitle {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.bookDescription {
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.viewMoreButton {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}

@@ -1,0 +1,62 @@
+---
+const newReleases = [
+  {
+    title: "La Ciudad de Vapor",
+    author: "Carlos Ruiz Zafón",
+    cover: "/src/html/pages/Landing/assets/img/fondoPrin.jpg",
+    price: "100 bs"
+  },
+  {
+    title: "Reina Roja",
+    author: "Juan Gómez-Jurado",
+    cover: "/books/reina-roja.jpg",
+    price: "200 bs"
+  },
+  {
+    title: "El Italiano",
+    author: "Arturo Pérez-Reverte",
+    cover: "/books/el-italiano.jpg",
+    price: "100 bs"
+  },
+  {
+    title: "Línea de Fuego",
+    author: "Arturo Pérez-Reverte",
+    cover: "/books/linea-fuego.jpg",
+    price: "150 bs"
+  }
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Últimas Novedades</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {newReleases.map(book => (
+        <div class="group">
+          <div class="relative overflow-hidden rounded-lg mb-3">
+            <img
+              src={book.cover || "/placeholder.svg"}
+              alt={book.title}
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <button class="bg-white text-gray-800 px-4 py-2 rounded-full font-medium">
+                Ver detalles
+              </button>
+            </div>
+          </div>
+          <h3 class="font-bold text-lg">{book.title}</h3>
+          <p class="text-gray-600">{book.author}</p>
+          <p class="font-bold text-blue-600 mt-1">{book.price}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="/novedades" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+        Ver todas las novedades
+      </a>
+    </div>
+  </div>
+</section>

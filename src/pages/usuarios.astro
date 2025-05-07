@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { db, nanoid } from '../data/db';
+import type { Usuario } from '../data/types';
+
+await db.read();
+const usuarios: Usuario[] = db.data.usuarios;
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const nuevoUsuario: Usuario = {
+    id: nanoid(),
+    nombre: formData.get('nombre') as string,
+    email: formData.get('email') as string
+  };
+  db.data.usuarios.push(nuevoUsuario);
+  await db.write();
+  return Astro.redirect('/usuarios');
+}
+
+if (Astro.url.searchParams.has('eliminar')) {
+  const id = Astro.url.searchParams.get('eliminar') as string;
+  db.data.usuarios = db.data.usuarios.filter((u: Usuario) => u.id !== id);
+  await db.write();
+  return Astro.redirect('/usuarios');
+}
+---
+
+<Layout>
+  <h1>Usuarios</h1>
+  
+  <form method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <button type="submit">Guardar</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {usuarios.map((usuario: Usuario) => (
+        <tr>
+          <td>{usuario.id}</td>
+          <td>{usuario.nombre}</td>
+          <td>{usuario.email}</td>
+          <td>
+            <a href={`?eliminar=${usuario.id}`}>Eliminar</a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</Layout>

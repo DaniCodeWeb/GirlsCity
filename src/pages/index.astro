@@ -1,16 +1,39 @@
 ---
+import MainLayout from './landing/layouts/MainLayout.astro';
+import HeroSection from './landing/components/HeroSection.astro';
+import Sidebar from './landing/components/Sidebar.astro';
+import LibrosLanding from './landing/components/LibrosLanding.astro';
+import DiscoverSection from './landing/components/DiscoverSection.astro';
+import FeaturedSection from './landing/components/FeaturedSection.astro';
+import Preventas from './landing/components/Preventas.astro';
+import NewReleasesSection from './landing/components/NewReleasesSection.astro';
+import TestimonialsSection from './landing/components/TestimonialsSection.astro';
+import NewsletterSection from './landing/components/NewsletterSection.astro';
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Inicio">
+  <div class="pt-16">
+    <!-- Main content grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4">
+      <!-- Sidebar - only visible on md and up -->
+      <div class="hidden md:block md:col-span-1 p-4 bg-gray-50">
+        <Sidebar />
+      </div>
+
+      <!-- Main content area -->
+      <div class="col-span-1 md:col-span-3">
+        <HeroSection />
+        <DiscoverSection />
+      </div>
+    </div>
+    <LibrosLanding/>
+    <Preventas/>
+    <!-- Full width sections -->
+    <FeaturedSection />
+    <NewReleasesSection />
+    <TestimonialsSection />
+    <NewsletterSection />
+  </div>
+</MainLayout>
+

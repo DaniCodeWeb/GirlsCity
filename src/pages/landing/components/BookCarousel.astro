@@ -1,0 +1,145 @@
+---
+const books = [
+  {
+    id: 1,
+    title: "jean",
+    author: "Edición Completa",
+    cover: "/src/assets/img/jean.png",
+    url: "/libros/pizarnik"
+  },
+  {
+    id: 2,
+    title: "chamarras",
+    author: "Zuri",
+    cover: "/src/assets/img/chamarra1.jpg",
+    url: "/libros/perfecto-caos"
+  },
+  {
+    id: 3,
+    title: "faldas",
+    author: "André Aciman",
+    cover: "/src/assets/img/falda1.png",
+    url: "/libros/llamame-por-tu-nombre"
+  },
+];
+---
+
+<div class="carousel-container relative overflow-hidden py-4">
+  <div class="carousel-wrapper flex gap-6 px-4">
+    {books.map((book) => (
+      <a
+        href={book.url}
+        class="book-card block transform transition-transform hover:scale-105 min-w-[200px]"
+        aria-label={`Ver ${book.title} por ${book.author}`}
+      >
+        <img
+          src={book.cover}
+          alt={`Portada de ${book.title}`}
+          class="rounded-lg shadow-lg h-64 w-full object-cover"
+          width="200"
+          height="256"
+          loading="lazy"
+        />
+        <div class="book-info mt-2 text-center px-2">
+          <h3 class="font-bold text-lg">{book.title}</h3>
+          <p class="text-sm text-gray-600">{book.author}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <button
+    class="carousel-button prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    aria-label="Libros anteriores"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <button
+    class="carousel-button next absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    aria-label="Siguientes libros"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel-container');
+    const prevButton = carousel.querySelector('.carousel-button.prev');
+    const nextButton = carousel.querySelector('.carousel-button.next');
+    const carouselWrapper = carousel.querySelector('.carousel-wrapper');
+    const bookCards = carousel.querySelectorAll('.book-card');
+
+    if (bookCards.length === 0) return;
+
+    const cardWidth = bookCards[0].offsetWidth + 24; // width + gap
+    let currentPosition = 0;
+    const maxPosition = (bookCards.length - Math.floor(carousel.offsetWidth / cardWidth)) * cardWidth;
+
+    const updateButtons = () => {
+      prevButton.disabled = currentPosition <= 0;
+      nextButton.disabled = currentPosition >= maxPosition;
+    };
+
+    prevButton.addEventListener('click', () => {
+      currentPosition = Math.max(0, currentPosition - cardWidth);
+      carouselWrapper.style.transform = `translateX(-${currentPosition}px)`;
+      updateButtons();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentPosition = Math.min(maxPosition, currentPosition + cardWidth);
+      carouselWrapper.style.transform = `translateX(-${currentPosition}px)`;
+      updateButtons();
+    });
+
+    updateButtons();
+
+    // Responsive adjustments
+    window.addEventListener('resize', () => {
+      currentPosition = 0;
+      carouselWrapper.style.transform = 'translateX(0)';
+      updateButtons();
+    });
+  });
+</script>
+
+<style>
+  .carousel-container {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .carousel-wrapper {
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  .carousel-button {
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+
+  .carousel-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .carousel-button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  .book-card {
+    flex: 0 0 auto;
+  }
+</style>
